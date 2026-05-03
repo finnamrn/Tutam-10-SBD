@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { CreateTodoPayload } from '../lib/api';
-import styles from './TodoForm.module.css';
 
 interface TodoFormProps {
   onSubmit: (payload: CreateTodoPayload) => Promise<void>;
@@ -33,32 +32,36 @@ export default function TodoForm({ onSubmit, isLoading }: TodoFormProps) {
   };
 
   return (
-    <div className={styles.formWrapper}>
-      <h2 className={styles.formTitle}>Add New Todo</h2>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.inputGroup}>
+    <div className="bg-white rounded-xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.08)] mb-6">
+      <h2 className="text-[18px] font-semibold text-[#333] mb-4">Add New Todo</h2>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <div className="flex flex-col">
           <input
             type="text"
             placeholder="What needs to be done? *"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className={styles.input}
+            className="px-[14px] py-[10px] border-[1.5px] border-[#e0e0e0] rounded-lg text-sm transition-colors focus:outline-none focus:border-[#4f46e5]"
             maxLength={255}
             disabled={isLoading}
           />
         </div>
-        <div className={styles.inputGroup}>
+        <div className="flex flex-col">
           <textarea
             placeholder="Add a description (optional)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className={styles.textarea}
+            className="px-[14px] py-[10px] border-[1.5px] border-[#e0e0e0] rounded-lg text-sm transition-colors focus:outline-none focus:border-[#4f46e5] resize-y"
             rows={2}
             disabled={isLoading}
           />
         </div>
-        {error && <p className={styles.error}>{error}</p>}
-        <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+        {error && <p className="text-red-600 text-[13px] -mt-1">{error}</p>}
+        <button 
+          type="submit" 
+          className="bg-[#4f46e5] hover:bg-[#4338ca] text-white border-none rounded-lg px-5 py-[10px] text-sm font-medium transition-all self-start disabled:opacity-60 disabled:cursor-not-allowed" 
+          disabled={isLoading}
+        >
           {isLoading ? 'Adding...' : '+ Add Todo'}
         </button>
       </form>
